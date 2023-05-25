@@ -2,19 +2,32 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import styled from 'styled-components';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const Menu = withStyles({
+    root: {
+      justifyContent: "flex-end"
+    }
+  })(Menu);
+
+  const Header = styled.div`
+    text-align: right;
+  `
+
   return (
-    <div>
+    <Header>
       <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -22,7 +35,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Dashboard
+        Menu
       </Button>
       <Menu
         id="basic-menu"
@@ -37,6 +50,6 @@ export default function BasicMenu() {
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
-    </div>
+    </Header>
   );
 }
